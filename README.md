@@ -36,7 +36,8 @@ Follow these steps to set up and run the project on your local machine:
 
 5. **Run the development server**: Start the Django development server with the command:
    ```bash
- python manage.py runserver
+   python manage.py runserver
+   
 
 ## API ENDPOINTS
 > Create a rule: POST /api/rules/
