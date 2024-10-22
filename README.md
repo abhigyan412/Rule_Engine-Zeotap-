@@ -40,10 +40,10 @@ Follow these steps to set up and run the project on your local machine:
    
 
 ## API ENDPOINTS
-> Create a rule: POST /api/rules/
-> Update a rule: PUT /api/rules/<id>/
-> Delete a rule: DELETE /api/rules/<id>/
-> Evaluate a rule: POST /api/rules/evaluate_rule
+- Create a rule: POST /api/rules/
+- Update a rule: PUT /api/rules/<id>/
+- Delete a rule: DELETE /api/rules/<id>/
+- Evaluate a rule: POST /api/rules/evaluate_rule
 
 
 ## FRONTEND
