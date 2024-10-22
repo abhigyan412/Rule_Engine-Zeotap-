@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rule Management</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Rule Management</h1>
+
+    <!-- Section 1: Evaluate Rule -->
+    <section>
+        <h2>Evaluate Rule</h2>
+        <form id="evaluate-form">
+            <label for="rule_id">Rule ID:</label>
+            <input type="number" id="rule_id" required>
+
+            <h3>User Data</h3>
+            <label for="age">Age:</label>
+            <input type="number" id="age" required>
+            <label for="department">Department:</label>
+            <input type="text" id="department" required>
+            <label for="salary">Salary:</label>
+            <input type="number" id="salary" required>
+            <label for="experience">Experience (years):</label>
+            <input type="number" id="experience" required>
+
+            <button type="submit">Evaluate Rule</button>
+        </form>
+
+        <div id="evaluate-result"></div>
+    </section>
+
+    <!-- Section 2: Modify Rule -->
+    <section>
+        <h2>Modify Existing Rule</h2>
+        <form id="modify-form">
+            <label for="modify_rule_id">Rule ID:</label>
+            <input type="number" id="modify_rule_id" required>
+
+            <label for="new_rule_string">New Rule String:</label>
+            <input type="text" id="new_rule_string" required placeholder="e.g., age > 30 AND salary < 50000">
+
+            <button type="submit">Modify Rule</button>
+        </form>
+
+        <div id="modify-result"></div>
+    </section>
+
+    <script>
+        $(document).ready(function() {
+            // Evaluate Rule Form Submission
+            $('#evaluate-form').submit(function(e) {
+                e.preventDefault(); // Prevent default form submission
+
+                const rule_id = $('#rule_id').val();
+                const user_data = {
+                    age: $('#age').val(),
+                    department: $('#department').val(),
+                    salary: $('#salary').val(),
+                    experience: $('#experience').val()
+                };
+
+                $.ajax({
+                    url: 'http://localhost:8000/api/rules/evaluate_rule/',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ rule_id, user_data }),
+                    success: function(response) {
+                        $('#evaluate-result').html(`Result: ${response.result}`);
+                    },
+                    error: function(xhr, status, error) {
+                        $('#evaluate-result').html(`Error: ${xhr.responseText}`);
+                    }
+                });
+            });
+
+            // Modify Rule Form Submission
+            $('#modify-form').submit(function(e) {
+                e.preventDefault(); // Prevent default form submission
+
+                const rule_id = $('#modify_rule_id').val();
+                const rule_string = $('#new_rule_string').val();
+
+                $.ajax({
+                    url: `http://localhost:8000/api/rules/${rule_id}/`, // URL to modify the rule
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ rule_string }),
+                    success: function(response) {
+                        $('#modify-result').html(`Rule updated successfully! Updated Rule: ${response.rule_string}`);
+                    },
+                    error: function(xhr, status, error) {
+                        $('#modify-result').html(`Error: ${xhr.responseText}`);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
