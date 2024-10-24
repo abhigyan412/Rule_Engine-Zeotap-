@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-w)q&g8@uo-@ju9jn0oz$=o=n=1%9@k!-tvwz2r_kk7%ades)d(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://rule-engine-zeotap-i35v.onrender.com']
 
 
 # Application definition
